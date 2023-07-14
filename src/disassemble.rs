@@ -42,9 +42,11 @@ fn disassemble_instr(buffer: &Vec<u8>, offset: usize) -> u8 {
     
     // Using a slice for data after opcode for making access simpler
     let operands = &buffer[offset+1..];
-
+    print!("0x{:04x}  ", offset);
     match opcode {
-        0x00 => println!("NOP"), 
+        //0x00 | 0x08 | 0x10 | 0x18 | 0x20 | 0x28 | 0x30 |
+            //0x38 | 0xcb | 0xd9 | 0xdd | 0xed | 0xfd
+            //=> println!("NOP"), 
         0x01 => {println!("LXI B, {:x} {:x}", operands[1], operands[0]); seek = 2},
         0x02 => println!("STAX B"),
         0x03 => println!("INX B"),
@@ -299,13 +301,14 @@ fn disassemble_instr(buffer: &Vec<u8>, offset: usize) -> u8 {
         0xfe => {println!("CPI {:x}", operands[0]); seek = 1},
         0xff => println!("RST 7"),
 
-        _ => terminate(format!("Unexpected instruction: {:x}", opcode).as_str()),
+        _ => println!("NOOP"),
+        //_ => terminate(format!("Unknown instruction: 0x{:02x}", opcode).as_str()),
     }
 
     seek
 }
 
 fn terminate(message: &str) -> ! {
-    eprintln!("{}", message);
+    println!("{}", message);
     exit(1);
 }
