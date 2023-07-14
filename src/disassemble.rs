@@ -18,8 +18,6 @@ fn main() {
 
     file.read_to_end(&mut buffer).unwrap();
 
-    println!("{:x?}", buffer);
-
     disassembler(&buffer);
 }
 
