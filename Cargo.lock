@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "spaceinvaders"
+name = "intel8080"
 version = "0.1.0"
