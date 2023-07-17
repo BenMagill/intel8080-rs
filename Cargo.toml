@@ -8,8 +8,8 @@ edition = "2021"
 [dependencies]
 
 [[bin]]
-name = "main"
-path = "src/main.rs"
+name = "emulator"
+path = "src/emulator.rs"
 
 [[bin]]
 name = "disassemble"

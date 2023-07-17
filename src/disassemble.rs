@@ -1,22 +1,12 @@
 use std::{env, fs::File, process::exit};
 use std::io::prelude::*;
 
+use crate::utils::{load_file, terminate};
+mod utils;
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let file_path = &args[1];
-
-    println!("{}", file_path);
-
-    let mut file = match File::open(file_path) {
-       Ok(file) => file,
-       Err(_) => {
-           terminate("Could not open file");
-       }
-    };
-
     let mut buffer: Vec<u8> = Vec::new();
 
-    file.read_to_end(&mut buffer).unwrap();
+    load_file(&mut buffer);
 
     disassembler(&buffer);
 }
@@ -308,7 +298,3 @@ fn disassemble_instr(buffer: &Vec<u8>, offset: usize) -> u8 {
     seek
 }
 
-fn terminate(message: &str) -> ! {
-    println!("{}", message);
-    exit(1);
-}
